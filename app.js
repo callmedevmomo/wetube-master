@@ -26,7 +26,7 @@ app.use(morgan("dev"));
 app.use(helmet());
 
 app.use(localsMiddleware);
-app.use(routes.upload, express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
