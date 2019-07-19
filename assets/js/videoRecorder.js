@@ -20,7 +20,7 @@ const stopRecording = () => {
   recordBtn.addEventListener("click", getVideo);
   recordBtn.innerHTML = "Start Recording";
 };
-const startReocrding = () => {
+const startRecording = () => {
   const videoRecorder = new MediaRecorder(streamObject);
   videoRecorder.start();
   videoRecorder.addEventListener("dataavailable", handleVideoData);
@@ -39,7 +39,7 @@ const getVideo = async () => {
     videoPreview.play();
     recordBtn.innerHTML = "Stop recording";
     streamObject = stream;
-    startReocrding();
+    startRecording();
     // console.log(stream); ==> just 0 to 1 , typeof object
   } catch (error) {
     recordBtn.innerHTML = "😂 Can't record";
