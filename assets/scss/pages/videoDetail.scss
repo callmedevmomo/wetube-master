@@ -1,3 +1,14 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .video-detail__container {
   display: flex;
   flex-direction: column;
@@ -34,22 +45,41 @@
   }
   .video__comments {
     margin-top: 25px;
+    text-align: center;
+    .add_comment {
+      margin-top: 10px;
+    }
     .video__comment-number {
       font-size: 18px;
     }
 
     .video__comments-list {
+      display: flex;
+      flex-direction: column;
       margin-top: 50px;
+      justify-content: space-around;
+      align-content: center;
       li {
-        text-align: center;
-        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
         background-color: #3498db;
         color: white;
         padding: 15px;
         border-radius: 20px;
         border-bottom-right-radius: 0px;
+
         &:not(:last-child) {
           margin-bottom: 15px;
+        }
+
+        .comment__delete {
+          animation: fadeIn 1s ease-in-out;
+          margin-top: 10px;
+          button {
+            position: relative;
+            bottom: 10px;
+            outline: none;
+          }
         }
       }
     }

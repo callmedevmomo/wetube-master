@@ -144,3 +144,16 @@ export const postAddComment = async (req, res) => {
     res.end();
   }
 };
+
+export const postRemoveComment = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    await Comment.findOneAndDelete(id);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
