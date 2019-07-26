@@ -44,8 +44,7 @@ export const postUpload = async (req, res) => {
   });
   req.user.videos.push(newVideo._id);
   req.user.save();
-  console.log(newVideo);
-  //To Do : Upload && Save Video
+  req.flash("success", "Happy to your Uploading!!");
   res.redirect(routes.videoDetail(newVideo.id));
 };
 export const videoDetail = async (req, res) => {
@@ -139,8 +138,10 @@ export const postAddComment = async (req, res) => {
     });
     video.comments.push(newComment._id);
     video.save();
+    req.flash("success", "Add your Comment!");
   } catch (error) {
     res.status(400);
+    req.flash("error", "Can't add Comment at this time.");
   } finally {
     res.end();
   }
@@ -152,7 +153,9 @@ export const postRemoveComment = async (req, res) => {
   } = req;
   try {
     await Comment.findOneAndDelete(id);
+    req.flash("success", "Delete your comment!");
   } catch (error) {
+    req.flash("error", "Can't delete your comment retry later");
     res.status(400);
   } finally {
     res.end();

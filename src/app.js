@@ -10,6 +10,7 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
@@ -35,7 +36,6 @@ app.use(helmet());
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 app.use("/static", express.static(path.join(__dirname, "static")));
-
 app.use(cookieParser());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,6 +48,8 @@ app.use(
     store: new CookieStore({ mongooseConnection: mongoose.connection }) //mongoose connection to mongodb
   }) // by using session been able to cookies on their hands
 );
+app.use(flash()); //we use messagess to local
+
 app.use(passport.initialize());
 app.use(passport.session()); //then with passport, also using session and this passport are going to  deserialize
 
