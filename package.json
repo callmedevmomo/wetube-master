@@ -6,14 +6,13 @@
   "author": "momo",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.5.5",
     "autoprefixer": "^9.6.1",
     "aws-sdk": "^2.498.0",
     "axios": "^0.19.0",
-    "babel-loader": "^8.0.6",
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.0.0",
     "cookie-parser": "^1.4.4",
@@ -43,11 +42,21 @@
     "webpack-cli": "^3.3.5"
   },
   "scripts": {
-    "dev:server": "nodemon --exec babel-node init.js --delay 2 --ignore '.scss' --ignore 'static' ",
-    "dev:assets": "WEBPACK_ENV=development webpack -w",
-    "build:assets": "WEBPACK_ENV=production webpack"
+    "dev:server": "nodemon --exec babel-node src/init.js --delay 2 --ignore '.scss' --ignore 'static' ",
+    "dev:assets": "cd src && WEBPACK_ENV=development webpack -w",
+    "build:assets": "cd src && WEBPACK_ENV=production webpack",
+    "build:server": "babel src --out-dir build --ignore 'src/assets','src/static','src/webpack.config.js'",
+    "copyAll": "cp -R src/static build && cp -R src/views build ",
+    "build": "npm run build:server && npm run build:assets && npm run copyAll",
+    "prebuild": "rm -rf build",
+    "start": "node build/init.js",
+    "prestart": "npm run build"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.0.0",
+    "babel-loader": "^8.0.6",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0",
     "nodemon": "^1.19.1"

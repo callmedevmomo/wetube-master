@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
+import path from "path";
 import bodyParser from "body-parser";
 import passport from "passport";
 import mongoose from "mongoose";
@@ -30,6 +31,8 @@ const CookieStore = MongoStore(session);
 // app.use(betweenHome);
 app.use(helmet());
 app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 
 app.use(cookieParser());
 app.use(bodyParser.json({ extended: true }));
@@ -48,8 +51,6 @@ app.use(passport.session()); //then with passport, also using session and this p
 
 app.use(localsMiddleware);
 
-app.use("/uploads", express.static("uploads"));
-app.use("/static", express.static("static"));
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
