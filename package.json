@@ -10,7 +10,6 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
     "@babel/register": "^7.5.5",
     "autoprefixer": "^9.6.1",
     "aws-sdk": "^2.498.0",
@@ -56,8 +55,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
-    "@babel/node": "^7.0.0",
     "@babel/core": "^7.5.5",
+    "@babel/node": "^7.0.0",
     "babel-loader": "^8.0.6",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0",
