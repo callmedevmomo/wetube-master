@@ -40,8 +40,8 @@ function getCurrentTime() {
 async function setTotalTime() {
   const blob = await fetch(videoPlayer.src).then(response => response.blob());
   const duration = await getBlobDuration(blob);
-  console.log(duration);
-  const totalTimeString = formatDate(duration); // videoPlayer.duration ==> duration
+  const totalTimeString = await formatDate(duration); // videoPlayer.duration ==> duration
+
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 1000);
 }
@@ -121,7 +121,8 @@ function init() {
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolume);
   fullScrnBtn.addEventListener("click", goFullScreen);
-  videoPlayer.addEventListener("loadedmetadata", setTotalTime);
+  videoPlayer.addEventListener("loadedmetadata", setTotalTime());
+
   videoPlayer.addEventListener("ended", handleEnded);
   volumeRange.addEventListener("input", handleDrag);
 }

@@ -17,6 +17,7 @@ import apiRouter from "./routers/apiRouter";
 import "./passport";
 
 const app = express();
+
 dotenv.config();
 
 const CookieStore = MongoStore(session);
@@ -27,13 +28,13 @@ const CookieStore = MongoStore(session);
 // };
 
 // app.use(betweenHome);
-
+app.use(helmet());
 app.set("view engine", "pug");
+
 app.use(cookieParser());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
-app.use(helmet());
 app.use(
   session({
     secret: process.env.COOKIE_SECRET,
@@ -46,6 +47,7 @@ app.use(passport.initialize());
 app.use(passport.session()); //then with passport, also using session and this passport are going to  deserialize
 
 app.use(localsMiddleware);
+
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("static"));
 app.use(routes.home, globalRouter);

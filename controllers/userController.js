@@ -30,6 +30,7 @@ export const postJoin = async (req, res, next) => {
 
 export const getlogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
+
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
   successRedirect: routes.home
@@ -91,9 +92,9 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
 export const postFacebookLogin = (req, res) => {
   res.redirect(routes.home);
 };
-export const logout = (req, res) => {
-  req.logout(); //in passport we just it for logout!!!
-  res.redirect(routes.home);
+export const logout = async (req, res) => {
+  await req.logout(); //in passport we just it for logout!!!
+  await res.redirect(routes.home);
 };
 export const getMe = async (req, res) => {
   console.log(req.user);
