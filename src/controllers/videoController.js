@@ -96,6 +96,7 @@ export const deleteVideo = async (req, res) => {
   try {
     const video = await Video.findById(id);
     if (video.creator != req.user.id) {
+      //or String(video.creator) !== req.user.id
       throw Error();
     } else {
       await Video.findOneAndRemove({ _id: id });
@@ -152,7 +153,8 @@ export const postRemoveComment = async (req, res) => {
     params: { id }
   } = req;
   try {
-    await Comment.findOneAndDelete(id);
+    await Comment.findByIdAndDelete(id);
+
     req.flash("success", "Delete your comment!");
   } catch (error) {
     req.flash("error", "Can't delete your comment retry later");

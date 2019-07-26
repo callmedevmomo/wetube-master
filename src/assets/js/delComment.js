@@ -1,5 +1,8 @@
 import axios from "axios";
 
+let target;
+let commentId;
+
 const commentNumber = document.getElementById("jsCommentNumber");
 
 const delBtn = document.getElementById("js-commentDelete");
@@ -10,15 +13,20 @@ const decreaseNumber = () => {
 
 const handleRemoveComment = async event => {
   event.preventDefault();
-  const target = await event.target.parentNode;
-  const commentId = await event.target.id;
-  const response = await axios({
-    url: `/api/${commentId}/comment/remove`,
-    method: "POST"
-  });
-  if (response.status === 200) {
-    await target.parentNode.remove();
-    decreaseNumber();
+  target = await event.target.parentNode;
+  commentId = await event.srcElement.id;
+  try {
+    const response = await axios({
+      url: `/api/${commentId}/comment/remove`,
+      method: "POST"
+    });
+
+    if (response.status === 200) {
+      target.parentNode.remove();
+      decreaseNumber();
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
