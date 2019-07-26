@@ -17,7 +17,7 @@ block content
             if video.views === 1
                 span.video__views 1 view
             else 
-                span.video__views #{video.views} views
+                span.video__views #{video.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} views
             .video__author
                 |Uploaded by 
                 a(href=routes.userDetail(video.creator.id))=video.creator.name
@@ -25,13 +25,14 @@ block content
             if video.comments.length === 1
                 span.video__comment-number
                     span#jsCommentNumber 1
-                    | comment
+                    |      comment
             else
                 span.video__comment-number
                     span#jsCommentNumber=video.comments.length
-                    | comments
-            form.add_comment#jsAddComment
-                input(type="text",placehloder="Add a Comment")
+                    |      comments
+            if loggedUser
+                form.add_comment#jsAddComment
+                    input(type="text",placehloder="Add a Comment")
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     li

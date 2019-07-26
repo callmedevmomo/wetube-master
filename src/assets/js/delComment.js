@@ -10,14 +10,14 @@ const decreaseNumber = () => {
 
 const handleRemoveComment = async event => {
   event.preventDefault();
-  const target = event.target.parentNode;
-  const commentId = event.target.id;
+  const target = await event.target.parentNode;
+  const commentId = await event.target.id;
   const response = await axios({
     url: `/api/${commentId}/comment/remove`,
     method: "POST"
   });
   if (response.status === 200) {
-    target.parentNode.remove();
+    await target.parentNode.remove();
     decreaseNumber();
   }
 };
